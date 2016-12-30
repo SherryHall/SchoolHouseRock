@@ -18,20 +18,19 @@ namespace SchoolHouseRock
 				{
 					cmd.Connection = connection;
 					cmd.CommandType = System.Data.CommandType.Text;
-					cmd.CommandText = @"Course.CourseNum, Course.CourseTitle, Instructors.Name" +
+					cmd.CommandText = @"SELECT Course.CourseNum, Course.CourseTitle, Instructor.Name " +
 									  "FROM Course " +
 									  "JOIN Instructor ON Instructor.Id = Course.Instructor_Id ";
 					connection.Open();
 					var reader = cmd.ExecuteReader();
-					connection.Close();
 					while (reader.Read())
 					{
 						var courseNum = (int) reader[0];
 						var courseTitle = reader[1] as string;
 						var instructor = reader[2] as string;
-						Console.WriteLine($"Course: {courseNum} {courseTitle} Instructor: {instructor}");
+						Console.WriteLine($"Course: {courseNum} {courseTitle};  Taught by {instructor}");
 					}
-				
+					connection.Close();
 				}
 
 			}
